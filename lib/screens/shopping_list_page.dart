@@ -2,6 +2,7 @@ import 'package:buy_list/widgets/dismissable_item_dialog.dart';
 import 'package:flutter/material.dart';
 import '../services/storage_service.dart';
 import '../widgets/add_item_dialog.dart';
+import '../widgets/navigation_drawer.dart' as navDrawer;  
 class ShoppingListPage extends StatefulWidget {
   const ShoppingListPage({super.key});
 
@@ -54,6 +55,7 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
           IconButton(icon: const Icon(Icons.add), onPressed: _openAddDialog),
         ],
       ),
+      drawer: const navDrawer.NavigationDrawer(),
       body: _items.isEmpty
           ? const Center(child: Text('Tap + to add your first item'))
           : ListView.builder(
