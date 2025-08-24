@@ -1,6 +1,6 @@
+import 'package:buy_list/services/auth_gate.dart';
 import 'package:flutter/material.dart';
 
-import '../screens/profile_page.dart';
 
 class NavigationDrawer extends StatelessWidget {
   const NavigationDrawer({super.key});
@@ -33,7 +33,7 @@ class NavigationDrawer extends StatelessWidget {
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                        builder: (context) => const ProfilePage()),
+                        builder: (context) => const AuthGate()),
                   ); //TODO
                 }),
             const ListTile(

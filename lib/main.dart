@@ -1,8 +1,13 @@
+import 'package:buy_list/services/auth_gate.dart';
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'screens/shopping_list_page.dart';
-import 'screens/profile_page.dart';
 
-void main() {
+void main() async {
+  await Supabase.initialize(
+      url: "https://igzqbpflamkalybgdlcl.supabase.co",
+      anonKey:
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlnenFicGZsYW1rYWx5YmdkbGNsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYwMzEzNDksImV4cCI6MjA3MTYwNzM0OX0.1UqHT9yVcLqy7yPA4MohCbC2pHWZLjmzrMjOAng3pHI");
   runApp(const MyApp());
 }
 
@@ -34,13 +39,11 @@ class _HomeNavState extends State<HomeNav> {
 
   final _pages = const [
     ShoppingListPage(),
-    ProfilePage(),
+    AuthGate(),
   ];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _pages[_index]
-    );
+    return Scaffold(body: _pages[_index]);
   }
 }

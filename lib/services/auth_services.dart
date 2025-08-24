@@ -1,29 +1,26 @@
-import 'package:shared_preferences/shared_preferences.dart';
+
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AuthService {
-  static const _keyIsLoggedIn = 'is_logged_in';
-  static const _keyEmail = 'user_email';
+ final SupabaseClient _supabaseClient = Supabase.instance.client;
 
-  Future<bool> isLoggedIn() async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getBool(_keyIsLoggedIn) ?? false;
-  }
-
-  Future<String?> getEmail() async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getString(_keyEmail);
-  }
-
-  // For demo: treat both login and signup the same (store email locally)
-  Future<void> loginOrSignup(String email) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool(_keyIsLoggedIn, true);
-    await prefs.setString(_keyEmail, email);
-  }
-
-  Future<void> logout() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool(_keyIsLoggedIn, false);
-    await prefs.remove(_keyEmail);
-  }
+ Future<AuthResponse> signInWithEmailPassword(String email, String password) async {
+  return await _supabaseClient.auth.signInWithPassword(email: email, password: password);
+ }
+ 
+  Future<AuthResponse> signUpWithEmailPassword(String email, String password) async {
+  return await _supabaseClient.auth.signUp(email: email, password: password);
+ }
+Future<void> signOut() async {
+  await _supabaseClient.auth.signOut();
 }
+
+String? getCurrentUserEmail(){
+  final session = _supabaseClient.auth.currentSession;
+  final user = session?.user;
+  return user?.email;
+}
+
+}
+
+
